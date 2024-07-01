@@ -1,6 +1,11 @@
-import { initializeApp } from 'firebase/app';
-import config from './config.js';
+import { initializeApp } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+import admin from 'firebase-admin';
 
-const firebase = initializeApp(config.firebaseConfig);
+const credentials = JSON.parse(process.env.FIREBASE_CREDENTIALS_TEST);
 
-export default firebase;
+initializeApp({
+  credential: admin.credential.cert(credentials),
+});
+
+export const db = getFirestore();
